@@ -110,4 +110,6 @@ button:active {
   grid-row: 2;
 }
 
-
+.pascalHexagon:hover {
+  opacity: .8;
+}

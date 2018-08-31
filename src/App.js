@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 
@@ -40,7 +39,7 @@ function randint(a, b) {
 
 function colorRange(n) {
   const hlo = randint(0, 360);
-  const hhi = hlo + 4*n + randint(0, 360-4*n);
+  const hhi = hlo + 4*n + randint(0, 360-4*n-5);
   const hs = (Math.random() < 0.5) ? linspace(hlo, hhi, n) : linspace(hhi, hlo, n);
   const slo = randint(30, 50);
   const shi = randint(50, 100);
@@ -91,7 +90,7 @@ function nextRow(lastRow, mod) {
 
 function calcTriangle(n, mod) {
   let rows = [[1]];
-  while (rows.length < n+1) {
+  while (rows.length < n) {
     rows.push(nextRow(rows[rows.length-1], mod));
   }
   return rows;
@@ -103,21 +102,33 @@ function calcViewBox(n, r){
   return `-${x} 0 ${2*x} ${y}`;
 }
 
+function renderHexagon(n, k, color) {
+  const center = calcCenter(n, k, 1);
+  const pts = hexagonPoints(center.cx, center.cy, 1);
+  const key = `hex${n}-${k}`;
+  const style = {
+    fill: color, 
+    //"stroke-width": "0.05",
+    //stroke: "#222",
+  };
+  return <polygon key={key} className="pascalHexagon" points={pts} style={style} />;
+  //return <circle key={key} cx={center.cx} cy={center.cy} r=".86" style={style} />
+}
+
 function renderTriangle(rows, colors) {
   let hexs = [];
   for (const n in rows) {
     for (const k in rows[n]) {
-      const center = calcCenter(parseInt(n, 10), parseInt(k, 10), 1);
       hexs.push({
-        pts: hexagonPoints(center.cx, center.cy, 1), 
-        style: {fill: colors[rows[n][k]%colors.length]}, 
-        key: `hex${n}-${k}`,
+        n: parseInt(n, 10),
+        k: parseInt(k, 10),
+        color: colors[rows[n][k]%colors.length], 
       })
     }
   }
   return (
     <svg key="pascalsColorTriangle" viewBox={calcViewBox(rows.length+1, 1)} >
-      {hexs.map(h => <polygon key={h.key} points={h.pts} style={h.style} />)}
+      {hexs.map(h => renderHexagon(h.n, h.k, h.color))}
     </svg>
   )
 }
@@ -125,21 +136,12 @@ function renderTriangle(rows, colors) {
 class TriangleHandler extends Component {
   constructor(props) {
     super(props);
-    const rows = props.rows || 20;
+    const rows = props.rows || 32;
     const mod = props.mod || 2;
     this.state = {
       rows: rows,
       mod: mod,
-      colors: [
-        hsl(200, 80, 60),
-        hsl(140, 60, 60),
-        hsl(60, 80, 50),
-        hsl(30, 80, 65),
-        hsl(0, 50, 60),
-        hsl(330, 60, 60),
-        hsl(280, 40, 40),
-        hsl(250, 0, 10),
-      ],
+      colors: colorRange(2),
       triangle: calcTriangle(rows, mod),
     }
   }
@@ -170,14 +172,14 @@ class TriangleHandler extends Component {
   update() {
     const r = parseInt(document.getElementById("rowInput").value, 10);
     const c = parseInt(document.getElementById("colorInput").value, 10);
-    const newColors = colorRange(c);
-    const newTriangle = calcTriangle(r, c);
-    this.setState({
-      rows: r, 
-      mod: c, 
-      triangle: newTriangle,
-      colors: newColors,
-    });
+    let newState = {rows: r, mod: c};
+    if (r === this.state.rows || c !== this.state.mod) {
+      newState.colors = colorRange(c);
+    }
+    if (r !== this.state.rows || c !== this.state.mod) {
+      newState.triangle = calcTriangle(r, c);
+    }
+    this.setState(newState);
   }
 
   render() {
@@ -185,15 +187,15 @@ class TriangleHandler extends Component {
       <div key="PascalsTriangleApp">
         <div key="pascalControls" className="pascalControls">
           <div className="inputBoxes">
-            <div className="inputLabel">Last Row</div>
+            <div className="inputLabel">Rows</div>
             <div className="inputLabel">Colors</div>
             <input id="rowInput"
                    className="inputBox"
                    type="number" 
                    min="1" 
-                   max="100"
+                   max="101"
                    size="1"
-                   defaultValue="20">
+                   defaultValue="32">
             </input>
             <input id="colorInput"
                    className="inputBox"
