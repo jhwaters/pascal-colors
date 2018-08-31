@@ -1,0 +1,88 @@
+:root {
+
+  --header: #222;
+  --on-header: #fafafa;
+
+  --backg: #fafafa;
+  --on-backg: #222;
+
+  --button: hsl(300, 40%, 40%);
+  --on-button: #fafafa;
+  --button-shadow: 0px 0px 3px #222;
+  --button-border: none;
+
+  --button-hov:  hsl(300, 40%, 45%);
+  --on-button-hov: #fafafa;
+  --button-hov-shadow: 1px 1px 5px #222;
+  --button-hov-border: none;
+
+  --button-act:  hsl(300, 40%, 35%);
+  --on-button-act: #fafafa;
+  --button-act-shadow: 0px 0px 2px #222;
+  --button-act-border: none; 
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: var(--header);
+  padding: 10px;
+  color: var(--on-header);
+}
+
+.App-intro {
+  font-size: large;
+}
+
+button {
+  font-size: 1.5em;
+  padding: .3em;
+  margin: .2em;
+  background: var(--button);
+  color: var(--on-button);
+  border: var(--button-border);
+  box-shadow: var(--button-shadow);
+}
+
+button:hover {
+  background: var(--button-hov);
+  color: var(--on-button-hov);
+  border: var(--button-hov-border);
+  box-shadow: var(--button-hov-shadow);
+}
+
+button:active {
+  background: var(--button-act);
+  color: var(--on-button-act);
+  border: var(--button-act-border);
+  box-shadow: var(--button-act-shadow);
+}
+
+.pascalControls {
+  margin: .2em;
+  padding: 1em;
+}
+
+.inputBoxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  vertical-align: top;
+  text-align: left;
+  width: auto;
+}
+
+.inputBox {
+  font-size: 1.2em;
+  padding: 0 .3em;
+  text-align: center;
+}
+
+.inputLabel {
+  margin-left: .5em;
+}
+
+#rowinput {
+  grid-column: 1;
+}
