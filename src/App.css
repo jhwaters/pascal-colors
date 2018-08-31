@@ -1,29 +1,35 @@
 :root {
 
-  --header: #222;
+  --header: #111;
   --on-header: #fafafa;
 
-  --backg: #fafafa;
-  --on-backg: #222;
+  --backg: #222;
+  --on-backg: #fafafa;
 
-  --button: hsl(300, 40%, 40%);
+  --button: hsl(330, 50%, 40%);
   --on-button: #fafafa;
-  --button-shadow: 0px 0px 3px #222;
-  --button-border: none;
+  --button-shadow: none;
+  --button-border: 2px solid #000;
 
-  --button-hov:  hsl(300, 40%, 45%);
+  --button-hov:  hsl(330, 50%, 45%);
   --on-button-hov: #fafafa;
-  --button-hov-shadow: 1px 1px 5px #222;
-  --button-hov-border: none;
+  --button-hov-shadow: none;
+  --button-hov-border: var(--button-border);
 
-  --button-act:  hsl(300, 40%, 35%);
+  --button-act:  hsl(330, 50%, 35%);
   --on-button-act: #fafafa;
-  --button-act-shadow: 0px 0px 2px #222;
-  --button-act-border: none; 
+  --button-act-shadow: none;
+  --button-act-border: var(--button-border);
+
+  --input: #555;
+  --on-input: #fafafa;
+  --input-border: 2px solid #000;
 }
 
 .App {
   text-align: center;
+  background: var(--backg);
+  color: var(--on-backg);
 }
 
 .App-header {
@@ -38,12 +44,13 @@
 
 button {
   font-size: 1.5em;
-  padding: .3em;
-  margin: .2em;
+  padding: .5em .3em;
+  margin: 0 .2em;
   background: var(--button);
   color: var(--on-button);
   border: var(--button-border);
   box-shadow: var(--button-shadow);
+  border-radius: .2em;
 }
 
 button:hover {
@@ -67,7 +74,7 @@ button:active {
 
 .inputBoxes {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   vertical-align: top;
   text-align: left;
   width: auto;
@@ -75,14 +82,32 @@ button:active {
 
 .inputBox {
   font-size: 1.2em;
-  padding: 0 .3em;
+  padding: 0;
   text-align: center;
+  color: var(--on-input);
+  background: var(--input);
+  border: var(--input-border);
+  margin: 0 .2em;
+  border-radius: .3em;
 }
 
 .inputLabel {
   margin-left: .5em;
 }
 
-#rowinput {
+#rowInput {
   grid-column: 1;
+  grid-row: 2;
 }
+
+#colorInput {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#updateButton {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+

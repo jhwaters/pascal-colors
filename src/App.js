@@ -187,23 +187,27 @@ class TriangleHandler extends Component {
           <div className="inputBoxes">
             <div className="inputLabel">Last Row</div>
             <div className="inputLabel">Colors</div>
-          </div>
-          <div className="inputBoxes">
             <input id="rowInput"
                    className="inputBox"
                    type="number" 
-                   min="0" 
-                   max="60"
-                   size="3"
-                   defaultValue="20"></input>
+                   min="1" 
+                   max="100"
+                   size="1"
+                   defaultValue="20">
+            </input>
             <input id="colorInput"
                    className="inputBox"
-                   type="number" 
-                   min="2" 
-                   max="8"
-                   size="3"
-                   defaultValue="2"></input>
-          <button key="updateButton" id="updateButton" onClick={() => this.update()}>Update</button>
+                   type="number"
+                   min="1" 
+                   max="35"
+                   size="1"
+                   defaultValue="2">
+            </input>
+            <button key="updateButton" 
+                  id="updateButton" 
+                  onClick={() => this.update()}>
+              Update
+            </button>
           </div>
         </div>
         <div key="triangleContainer">
