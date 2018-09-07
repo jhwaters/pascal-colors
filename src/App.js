@@ -143,26 +143,39 @@ class TriangleHandler extends Component {
       mod: mod,
       colors: colorRange(2),
       triangle: calcTriangle(rows, mod),
+      emphasize: [],
     }
   }
 
   colors() {
     return this.state.colors;
+    /*
+    let result = [];
+    for (const c in this.state.colors) {
+      const col = this.state.colors[c]
+      if (c in this.state.emphasize) {
+        result.push(hsl(0, 100, 100));
+      } else {
+        result.push(hsl(col.h, col.s, col.l));
+      }
+    }
+    return result;
+    */
   }
 
-  renderColorPicker() {
-    let cols = [];
-    for (let k=0; k<this.state.mod; k++) {
-      cols.push({mod: k, color: this.state.colors[k]});
+  renderSliders() {
+    let theprimes = [];
+    for (const prime of [2, 3, 5, 7, 11, 13]) {
+      if (this.state.mod % prime === 0) {
+        theprimes.push(prime);
+      }
     }
-    return(
-      <div className="colorPicker">
-        {cols.map(c => (
-          <div>
-            {`Color ${c.mod}:`}
-            Hue: <input id={`color${c.mod}-hue`}></input> 
-            Saturation: <input id={`color${c.mod}-sat`}></input> 
-            Lightness: <input id={`color${c.mod}-lig`}></input> 
+    return (
+      <div id="primeSliders" >
+        {theprimes.map(p => (
+          <div key={`slider${p}`} >
+            <button id={`primeButton${p}`} key={`primeButton${p}`}
+              onClick={() => this.showMultiples(p)}>{p}</button>
           </div>
         ))}
       </div>
@@ -172,7 +185,7 @@ class TriangleHandler extends Component {
   update() {
     const r = parseInt(document.getElementById("rowInput").value, 10);
     const c = parseInt(document.getElementById("colorInput").value, 10);
-    let newState = {rows: r, mod: c};
+    let newState = {rows: r, mod: c, emphasize: []};
     if (r === this.state.rows || c !== this.state.mod) {
       newState.colors = colorRange(c);
     }
@@ -180,6 +193,16 @@ class TriangleHandler extends Component {
       newState.triangle = calcTriangle(r, c);
     }
     this.setState(newState);
+  }
+
+  showMultiples(p) {
+    let result = [];
+    for (let i=0; i<this.state.mod; i++) {
+      if (i % p === 0) {
+        result.push(i);
+      }
+    }
+    this.setState({"emphasize": result});
   }
 
   render() {
@@ -191,17 +214,19 @@ class TriangleHandler extends Component {
             <div className="inputLabel">Colors</div>
             <input id="rowInput"
                    className="inputBox"
-                   type="number" 
+                   type="tel" 
                    min="1" 
                    max="101"
+                   maxLength="3"
                    size="1"
                    defaultValue="32">
             </input>
             <input id="colorInput"
                    className="inputBox"
-                   type="number"
+                   type="tel"
                    min="1" 
                    max="35"
+                   maxLength="3"
                    size="1"
                    defaultValue="2">
             </input>

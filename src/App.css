@@ -28,13 +28,13 @@
 
 .App {
   text-align: center;
-  background: var(--backg);
+  background-color: var(--backg);
   color: var(--on-backg);
 }
 
 .App-header {
   background-color: var(--header);
-  padding: 10px;
+  padding: 5px;
   color: var(--on-header);
 }
 
@@ -112,4 +112,10 @@ button:active {
 
 .pascalHexagon:hover {
   opacity: .8;
+}
+
+#primeSliders {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  text-align: left;
 }
