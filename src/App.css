@@ -1,121 +1,179 @@
-:root {
-
-  --header: #111;
-  --on-header: #fafafa;
-
-  --backg: #222;
-  --on-backg: #fafafa;
-
-  --button: hsl(330, 50%, 40%);
-  --on-button: #fafafa;
-  --button-shadow: none;
-  --button-border: 2px solid #000;
-
-  --button-hov:  hsl(330, 50%, 45%);
-  --on-button-hov: #fafafa;
-  --button-hov-shadow: none;
-  --button-hov-border: var(--button-border);
-
-  --button-act:  hsl(330, 50%, 35%);
-  --on-button-act: #fafafa;
-  --button-act-shadow: none;
-  --button-act-border: var(--button-border);
-
-  --input: #555;
-  --on-input: #fafafa;
-  --input-border: 2px solid #000;
-}
 
 .App {
-  text-align: center;
-  background-color: var(--backg);
-  color: var(--on-backg);
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-areas:
+    "head head"
+    "main opt1"
+    "main opt2";
+  grid-template-columns: 1fr 200px;
+  grid-template-rows: 30px 1fr 1fr;
+  background-color: #222;
+  color: #fff;
 }
 
-.App-header {
-  background-color: var(--header);
+.App > header {
+  grid-area: head;
   padding: 5px;
-  color: var(--on-header);
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  font-family: "overlock", sans-serif;
 }
 
-.App-intro {
-  font-size: large;
+.App > .App-options {
+  grid-area: opt1;
+  background-color: #333;
+  display: grid;
+  grid-template-areas:
+    "label1 input1"
+    "label2 input2"
+    "button button"
+    "empty empty";
+  grid-template-rows: 50px 50px 50px 1fr;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px;
+}
+
+.App > .App-colors {
+  grid-area: opt2;
+  background-color: #333;
+  display: grid;
+  grid-template-areas:
+    "title"
+    "primes"
+    "button"
+    "empty";
+  padding: 10px;
+}
+
+.App > .App-main {
+  grid-area: main;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+
+.App > .App-main > svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.App > footer {
+  grid-area: foot;
+  background-color: #111;
+}
+
+.App > .App-options > .inputLabel1 {
+  grid-area: label1;
+}
+
+.App > .App-options > .inputLabel2 {
+  grid-area: label2;
+}
+
+.App > .App-options > .input1 {
+  grid-area: input1;
+}
+
+.App > .App-options > .input2 {
+  grid-area: input2;
+}
+
+.App > .App-options > .updateButton {
+  grid-area: button;
+}
+
+.App > .App-options > * {
+  align-self: center;
+}
+
+.App > .App-colors > .App-colors-title {
+  grid-area: title;
+}
+
+.App > .App-colors > .primeSliders {
+  grid-area: primes;
+}
+
+.App > .App-colors > button {
+  grid-area: button;
 }
 
 button {
-  font-size: 1.5em;
-  padding: .5em .3em;
-  margin: 0 .2em;
-  background: var(--button);
-  color: var(--on-button);
-  border: var(--button-border);
-  box-shadow: var(--button-shadow);
-  border-radius: .2em;
+  background-color: hsl(330, 50%, 40%);
+  color: white;
+  font-size: 1em;
+  border: none;
+  padding: 10px;
+  box-shadow: 1px 1px 4px black;
+  border-radius: 20px;
+  height: 3em;
 }
 
 button:hover {
-  background: var(--button-hov);
-  color: var(--on-button-hov);
-  border: var(--button-hov-border);
-  box-shadow: var(--button-hov-shadow);
+  background-color: hsl(330, 50%, 45%);
 }
 
 button:active {
-  background: var(--button-act);
-  color: var(--on-button-act);
-  border: var(--button-act-border);
-  box-shadow: var(--button-act-shadow);
+  color: #eee;
+  background-color: hsl(330, 50%, 35%);
+  box-shadow: 0px 0px 2px black;
 }
 
-.pascalControls {
-  margin: .2em;
-  padding: 1em;
+button:disabled {
+  background-color: #444;
 }
 
-.inputBoxes {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  vertical-align: top;
-  text-align: left;
-  width: auto;
+button:disabled:hover {
+  color: #777;
 }
 
-.inputBox {
-  font-size: 1.2em;
-  padding: 0;
+input[type="number"] {
+  color: #fff;
+  background-color: #555;
+  font-size: 1em;
+  width: 90%;
   text-align: center;
-  color: var(--on-input);
-  background: var(--input);
-  border: var(--input-border);
-  margin: 0 .2em;
-  border-radius: .3em;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 0;
 }
 
-.inputLabel {
-  margin-left: .5em;
+polygon {
+  stroke-width: .1px;
+  stroke: black;
 }
 
-#rowInput {
-  grid-column: 1;
-  grid-row: 2;
-}
+@media (max-width: 500px) {
+  .App {
+    grid-template-areas:
+      "head head"
+      "opt1 opt1"
+      "main main"
+      "opt2 opt2";
+    grid-template-rows: 30px 80px 1fr;
+    grid-template-columns: 40px 1fr;
+  }
 
-#colorInput {
-  grid-column: 2;
-  grid-row: 2;
-}
+  .App > .App-options {
+    background-color: #222;
+    padding: 5px;
+    display: grid;
+    grid-template-areas:
+      "label1 label2 button"
+      "input1 input2 button";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 
-#updateButton {
-  grid-column: 3;
-  grid-row: 2;
-}
+  .App > .App-colors {
+    display: none;
+  }
 
-.pascalHexagon:hover {
-  opacity: .8;
-}
-
-#primeSliders {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  text-align: left;
+  button {
+    height: 80%;
+  }
 }
