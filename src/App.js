@@ -158,6 +158,7 @@ class App extends Component {
 
   renderPrimeSlider(p) {
     const k = `primeSlider${p}`;
+    const def = (p === 1) ? "0" : "4"
     return (
       <div className="primeSlider" key={`color${p}`}>
         {p}<input 
@@ -167,7 +168,7 @@ class App extends Component {
           min="0"
           max="8"
           step="1"
-          defaultValue="4"
+          defaultValue="0"
           onChange={() => this.maybeUpdateColors()}
         />
       </div>

@@ -33,19 +33,17 @@ function randint(a, b) {
 function colorRange(n) {
   const hlo = randint(0, 360)
   const d = 360 / n
-  const hhi = hlo + 360 - randint(d/2, d)
+  const hhi = hlo + randint(100, 360) - randint(d/4, d)
   const hs = (Math.random() < 0.5) ? linspace(hlo, hhi, n) : linspace(hhi, hlo, n)
-  /*
   const sd = randint(0,60)
   const slo = randint(30,95-sd)
   const ss = (Math.random() < 0.5) ? linspace(slo, slo+sd, n) : linspace(slo+sd, slo, n)
-  const ld = randint(0,60)
-  const llo = randint(30,95-ld)
+  const ld = randint(0,70)
+  const llo = randint(15,90-ld)
   const ls = (Math.random() < 0.5) ? linspace(llo, llo+ld, n) : linspace(llo+ld, llo, n)
-  */
   let result = []
   for (let i = 0; i<n; i++) {
-    result.push(hsl(hs[i] % 360, 50, 50))
+    result.push(hsl(hs[i] % 360, ss[i], ls[i]))
   }
   return result;
 }
